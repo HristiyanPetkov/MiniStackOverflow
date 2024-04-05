@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Question from './Question';
 
 const questions = [
@@ -45,6 +45,17 @@ const questions = [
 ];
 
 const HomePage = () => {
+    // const [questions, setQuestions] = useState([]);
+    //
+    // useEffect(() => {
+    //     const fetchQuestions = async () => {
+    //         const response = await fetch('http://localhost:8000/questions');
+    //         const data = await response.json();
+    //         setQuestions(data);
+    //     };
+    //     fetchQuestions().then(r => console.log(r));
+    // }, []);
+
     return (
         <div>
             <h1 className="text-center text-4xl" >Questions</h1>

@@ -24,11 +24,38 @@ const comments = [
         content: "I think that you should use the new Arduino IDE 2.0",
         user: "John",
     },
+    {
+        id: 3,
+        content: "I think that you should use the new Arduino IDE 2.0\n" +
+            "    const a = 0;\n" +
+            "    const b = 1;\n" +
+            "    const c = a + b;\n",
+        user: "John",
+    }
 ];
 
 const QuestionPage = () => {
     //const [question, setQuestion] = useState({});
+    //const [comments, setComments] = useState([]);
     const id = useParams().questionId;
+    const [buttonClicked, setButtonClicked] = useState(false);
+
+    const [comment, setComment] = useState('');
+
+    const handleSubmit = () => {
+        console.log('Submitted comment:', comment);
+        comments.push({
+            id: comments.length + 1,
+            content: comment,
+            user: 'John',
+        });
+
+        setComment('');
+    };
+
+    const handleInputChange = (event) => {
+        setComment(event.target.value);
+    };
 
     // useEffect(() => {
     //     const fetchQuestion = async () => {
@@ -39,6 +66,11 @@ const QuestionPage = () => {
     //     fetchQuestion().then(r => console.log(r));
     // }, []);
 
+    const AddComment = () => {
+        console.log('Add Comment');
+        setButtonClicked(!buttonClicked);
+    }
+
     return (
         <div className="bg-gray-100 border border-gray-300 p-4 mb-4 w-7/12 mx-auto">
             <div>
@@ -48,7 +80,33 @@ const QuestionPage = () => {
                 <p className="text-gray-800">Asked by {question.user}</p>
             </div>
             <div>
-                <h2 className="text-2xl font-bold mb-2 mt-2">Comments</h2>
+                <div className="flex justify-between pb-2">
+                    <h2 className="text-2xl font-bold mb-2 mt-2">Comments</h2>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={AddComment}>Add Comment</button>
+                </div>
+                {buttonClicked && (
+                    <div className="flex flex-col">
+                        <div className="flex">
+                            <textarea
+                                value={comment}
+                                onChange={handleInputChange}
+                                placeholder="Enter your comment"
+                                className="border border-gray-300 p-2 mb-2 w-1/2"
+                            />
+                            <div className="ml-2 w-1/2">
+                                <h3 className="text-lg font-bold mb-2">Preview:</h3>
+                                {comment.length > 0 && (
+                                    <Comment comment={{ content: comment, user: 'John' }} />
+                                )}
+                            </div>
+
+                        </div>
+                        <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 mx-auto mb-4 w-1/4">
+                            Submit
+                        </button>
+                    </div>
+                )}
+
                 <ul>
                     {comments.map((comment) => (
                         <li key={comment.id}>

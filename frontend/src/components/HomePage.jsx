@@ -29,13 +29,25 @@ const questions = [
         title: "How to use the new React Context API?",
         description: "I am trying",
         user: "John",
+    },
+    {
+        id: 6,
+        title: "How to use the new React Context API?",
+        description: "I am trying",
+        user: "John",
+    },
+    {
+        id: 7,
+        title: "How to use the new React Context API?",
+        description: "I am trying",
+        user: "John",
     }
 ];
 
 const HomePage = () => {
     return (
         <div>
-            <h1 className="text-center" >HomePage</h1>
+            <h1 className="text-center text-4xl" >Questions</h1>
             <ul className="flex-col flex">
                 <p>Amount: {questions.length}</p>
                 {questions.map((question) => (

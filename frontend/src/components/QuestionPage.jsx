@@ -42,13 +42,13 @@ const QuestionPage = () => {
     return (
         <div className="bg-gray-100 border border-gray-300 p-4 mb-4 w-7/12 mx-auto">
             <div>
-                <h1 className="text-2xl font-bold mb-2">{question.title} </h1>
-                <p className="text-gray-800 text-xs">{question.description}</p>
-                <p className="text-gray-800 text-xs">Asked by {question.user}</p>
-
+                <h1 className="text-3xl font-bold mb-2">{question.title} </h1>
+                <p className="text-gray-800">{question.description}</p>
+                <br/>
+                <p className="text-gray-800">Asked by {question.user}</p>
             </div>
             <div>
-                <h2 className="text-2xl font-bold mb-2">Comments</h2>
+                <h2 className="text-2xl font-bold mb-2 mt-2">Comments</h2>
                 <ul>
                     {comments.map((comment) => (
                         <li key={comment.id}>

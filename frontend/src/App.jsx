@@ -6,11 +6,13 @@ import QuestionPage from "./components/QuestionPage";
 const App = () => (
         <Router>
             <Navbar />
-            <Routes>
-                <Route path='/homePage' element={<HomePage />} />
-                <Route path='/' element={<HomePage />} />
-                <Route path='/questions/:questionId' element={<QuestionPage />} />
-            </Routes>
+            <div className="mt-20">
+                <Routes>
+                    <Route path='/homePage' element={<HomePage />} />
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/questions/:questionId' element={<QuestionPage />} />
+                </Routes>
+            </div>
         </Router>
 );
 

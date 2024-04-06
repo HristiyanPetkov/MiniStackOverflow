@@ -16,7 +16,7 @@ const TextFormatter = ({ text }) => {
     return (
         <div>
             {contentLines.map((line, index) => {
-                if (line.startsWith('    ')) {
+                if (line.startsWith('    ') && line.length > 4) {
                     return (
                         <p key={index} className="bg-gray-800 text-gray-200 whitespace-pre-wrap">
                             {highlightKeywords(line)}

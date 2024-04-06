@@ -21,11 +21,19 @@ const answers = [
         id: 1,
         content: "You should use the new Arduino IDE 2.0",
         user: "John",
+        comments: [],
     },
     {
         id: 2,
         content: "I think that you should use the new Arduino IDE 2.0",
         user: "John",
+        comments: [
+            {
+                id: 1,
+                content: "I think that",
+                user: "John",
+            }
+        ],
     },
     {
         id: 3,
@@ -34,6 +42,7 @@ const answers = [
             "    const b = 1;\n" +
             "    const c = a + b;\n",
         user: "John",
+        comments: [],
     }
 ];
 

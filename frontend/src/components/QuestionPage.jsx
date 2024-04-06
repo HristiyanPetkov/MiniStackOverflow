@@ -1,19 +1,22 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Answer from "./Answer";
 
 const question = {
     id: 3,
     title: "Direct register manipulation on Arduino Uno R4",
-    description: "I want to generate a PWM signal on pin 9 (P303) using direct register manipulation." +
+    description: " I want to generate a PWM signal on pin 9 (P303) using direct register manipulation.\n" +
         " The new chip used on the Arduino Uno R4 is from Renesas and I found the documentation for the it." +
         " The problem is that I think that the Arduino IDE does not have support for this microcontroller" +
         " registers like they do for the Atmega328 chips. For example, I tried to call the register GPT321. " +
-        "GTPR but the IDE does not recognize it. How should I solve this problem?",
+        "GTPR but the IDE does not recognize it. How should I solve this problem?\n" +
+        "    const a = 0;\n" +
+        "    const b = 1;\n" +
+        "    const c = a + b;\n",
     user: "Margin Petrisor-Victor",
 }
 
-const comments = [
+const answers = [
     {
         id: 1,
         content: "You should use the new Arduino IDE 2.0",
@@ -40,21 +43,34 @@ const QuestionPage = () => {
     const id = useParams().questionId;
     const [buttonClicked, setButtonClicked] = useState(false);
 
-    const [comment, setComment] = useState('');
+    const [answer, setAnswer] = useState('');
+
+    const keywords = ["const", "let", "var", "if", "else", "for", "while", "function"];
+    const contentLines = question.description.split('\n');
+    console.log(contentLines);
+
+    const highlightKeywords = (line) => {
+        return line.split(/\b/).map((word, index) => {
+            if (keywords.includes(word)) {
+                return <span key={index} className="text-blue-500">{word}</span>;
+            }
+            return word;
+        });
+    };
 
     const handleSubmit = () => {
-        console.log('Submitted comment:', comment);
-        comments.push({
-            id: comments.length + 1,
-            content: comment,
+        console.log('Submitted answer:', answer);
+        answers.push({
+            id: answers.length + 1,
+            content: answer,
             user: 'John',
         });
 
-        setComment('');
+        setAnswer('');
     };
 
     const handleInputChange = (event) => {
-        setComment(event.target.value);
+        setAnswer(event.target.value);
     };
 
     // useEffect(() => {
@@ -66,7 +82,7 @@ const QuestionPage = () => {
     //     fetchQuestion().then(r => console.log(r));
     // }, []);
 
-    const AddComment = () => {
+    const AddAnswer = () => {
         console.log('Add Answer');
         setButtonClicked(!buttonClicked);
     }
@@ -75,28 +91,42 @@ const QuestionPage = () => {
         <div className="bg-gray-100 border border-gray-300 p-4 mb-4 w-7/12 mx-auto">
             <div>
                 <h1 className="text-3xl font-bold mb-2">{question.title} </h1>
-                <p className="text-gray-800">{question.description}</p>
+                {contentLines.map((line, index) => {
+                    if (line.startsWith('    ')) {
+                        return (
+                            <p key={index} className="bg-gray-800 text-gray-200 p-2 whitespace-pre-wrap">
+                                {highlightKeywords(line)}
+                            </p>
+                        );
+                    } else {
+                        return (
+                            <p key={index}>
+                                {line}
+                            </p>
+                        );
+                    }
+                })}
                 <br/>
                 <p className="text-gray-800">Asked by {question.user}</p>
             </div>
             <div>
                 <div className="flex justify-between pb-2">
-                    <h2 className="text-2xl font-bold mb-2 mt-2">Comments</h2>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={AddComment}>Add Comment</button>
+                    <h2 className="text-2xl font-bold mb-2 mt-2">Answers {answers.length}</h2>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={AddAnswer}>Add Answer</button>
                 </div>
                 {buttonClicked && (
                     <div className="flex flex-col">
                         <div className="flex">
                             <textarea
-                                value={comment}
+                                value={answer}
                                 onChange={handleInputChange}
-                                placeholder="Enter your comment"
+                                placeholder="Enter your answer"
                                 className="border border-gray-300 p-2 mb-2 w-1/2"
                             />
                             <div className="ml-2 w-1/2">
                                 <h3 className="text-lg font-bold mb-2">Preview:</h3>
-                                {comment.length > 0 && (
-                                    <Answer comment={{ content: comment, user: 'John' }} />
+                                {answer.length > 0 && (
+                                    <Answer answer={{ content: answer, user: 'John' }} />
                                 )}
                             </div>
 
@@ -108,9 +138,9 @@ const QuestionPage = () => {
                 )}
 
                 <ul>
-                    {comments.map((comment) => (
-                        <li key={comment.id}>
-                            <Answer comment={comment} />
+                    {answers.map((answer) => (
+                        <li key={answer.id}>
+                            <Answer answer={answer} />
                         </li>
                     ))}
                 </ul>

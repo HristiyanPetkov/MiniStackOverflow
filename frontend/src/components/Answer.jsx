@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Answer = ({ comment }) => {
+const Answer = ({ answer }) => {
     const keywords = ["const", "let", "var", "if", "else", "for", "while", "function"];
 
     const highlightKeywords = (line) => {
@@ -13,16 +13,26 @@ const Answer = ({ comment }) => {
     };
 
 
-    const contentLines = comment.content.split('\n');
+    const contentLines = answer.content.split('\n');
 
     return (
         <div className="bg-gray-200 border border-gray-300 p-4 mb-4">
-            {contentLines.map((line, index) => (
-                <p key={index} className={line.startsWith('    ') ? 'bg-gray-800 text-gray-200 p-2 whitespace-pre-wrap' : ''}>
-                    {highlightKeywords(line)}
-                </p>
-            ))}
-            <p>Commented by {comment.user}</p>
+            {contentLines.map((line, index) => {
+                if (line.startsWith('    ')) {
+                    return (
+                        <p key={index} className="bg-gray-800 text-gray-200 p-2 whitespace-pre-wrap">
+                            {highlightKeywords(line)}
+                        </p>
+                    );
+                } else {
+                    return (
+                        <p key={index}>
+                            {line}
+                        </p>
+                    );
+                }
+            })}
+            <p>Commented by {answer.user}</p>
         </div>
     );
 }

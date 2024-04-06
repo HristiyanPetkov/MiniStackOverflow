@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Comment = ({ comment }) => {
+const Answer = ({ comment }) => {
     const keywords = ["const", "let", "var", "if", "else", "for", "while", "function"];
 
     const highlightKeywords = (line) => {
@@ -27,4 +27,4 @@ const Comment = ({ comment }) => {
     );
 }
 
-export default Comment;
+export default Answer;

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import Comment from "./Comment";
+import Answer from "./Answer";
 
 const question = {
     id: 3,
@@ -67,7 +67,7 @@ const QuestionPage = () => {
     // }, []);
 
     const AddComment = () => {
-        console.log('Add Comment');
+        console.log('Add Answer');
         setButtonClicked(!buttonClicked);
     }
 
@@ -96,7 +96,7 @@ const QuestionPage = () => {
                             <div className="ml-2 w-1/2">
                                 <h3 className="text-lg font-bold mb-2">Preview:</h3>
                                 {comment.length > 0 && (
-                                    <Comment comment={{ content: comment, user: 'John' }} />
+                                    <Answer comment={{ content: comment, user: 'John' }} />
                                 )}
                             </div>
 
@@ -110,7 +110,7 @@ const QuestionPage = () => {
                 <ul>
                     {comments.map((comment) => (
                         <li key={comment.id}>
-                            <Comment comment={comment} />
+                            <Answer comment={comment} />
                         </li>
                     ))}
                 </ul>

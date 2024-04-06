@@ -62,7 +62,7 @@ const HomePage = () => {
             <h1 className="text-center text-4xl" >Questions</h1>
             <ul>
                 <div className="flex justify-between mx-auto w-7/12 mb-2 items-center">
-                    <p className="text-2xl">Amount: {questions.length}</p>
+                    <p className="text-2xl">{questions.length} questions</p>
                     <Link to={'/askQuestion'}>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl ">Ask Question</button>
                     </Link>

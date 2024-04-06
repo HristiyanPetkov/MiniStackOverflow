@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import TextWithPreview from "./TextWithPreview";
 
 const AskQuestion = () => {
-    const [title, setTitle] = React.useState('');
-    const [description, setDescription] = React.useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
 
     const navigator = useNavigate();
 
@@ -41,11 +41,11 @@ const AskQuestion = () => {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-4xl text-center">Add Question</h1>
+            <h1 className="text-4xl text-center">Ask a question</h1>
             <div className="flex justify-center">
                 <form className="w-3/4">
                     <div className="mb-4">
-                        <label className="block mb-2">Title:</label>
+                        <label className="block mb-2 text-xl">Title:</label>
                         <input
                             type="text"
                             value={title}
@@ -53,7 +53,7 @@ const AskQuestion = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <div className="flex justify-between">
+                        <div className="flex justify-between text-xl">
                             <label className="block mb-2">Description:</label>
                             <label className="black mb-2 w-1/2">Preview:</label>
                         </div>

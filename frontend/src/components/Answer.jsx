@@ -38,7 +38,7 @@ const Answer = ({ answer }) => {
     const contentLines = answer.content.split('\n');
 
     return (
-        <div className="bg-gray-200 border border-gray-300 p-4 mb-4">
+        <div className="bg-gray-200 border border-gray-300 p-4 mb-4 rounded-3xl">
             {contentLines.map((line, index) => {
                 if (line.startsWith('    ')) {
                     return (

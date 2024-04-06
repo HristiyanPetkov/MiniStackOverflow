@@ -97,7 +97,7 @@ const QuestionPage = () => {
     }
 
     return (
-        <div className="bg-gray-100 border border-gray-300 p-4 mb-4 w-7/12 mx-auto">
+        <div className="bg-gray-100 border border-gray-300 p-4 mb-4 w-7/12 mx-auto rounded-3xl">
             <div>
                 <h1 className="text-3xl font-bold mb-2">{question.title} </h1>
                 {contentLines.map((line, index) => {
@@ -121,7 +121,7 @@ const QuestionPage = () => {
             <div>
                 <div className="flex justify-between pb-2">
                     <h2 className="text-2xl font-bold mb-2 mt-2">Answers {answers.length}</h2>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " onClick={AddAnswer}>Add Answer</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl " onClick={AddAnswer}>Add Answer</button>
                 </div>
                 {buttonClicked && (
                     <div className="flex flex-col">
@@ -140,7 +140,7 @@ const QuestionPage = () => {
                             </div>
 
                         </div>
-                        <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 mx-auto mb-4 w-1/4">
+                        <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl mt-2 mx-auto mb-4 w-1/4">
                             Submit
                         </button>
                     </div>

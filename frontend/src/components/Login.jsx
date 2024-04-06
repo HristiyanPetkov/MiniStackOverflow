@@ -43,7 +43,7 @@ const Login = () => {
                     <button
                         type="button"
                         onClick={handleLogin}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-full mt-4 hover:bg-blue-500"
+                        className="bg-blue-600 text-white px-4 py-2 rounded-xl mt-4 hover:bg-blue-500"
                     >
                         Login
                     </button>

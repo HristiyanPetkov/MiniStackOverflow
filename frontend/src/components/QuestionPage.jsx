@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Answer from "./Answer";
+import AddAnswer from "./AddAnswer";
+import TextFormatter from "./TextFormatter";
 
 const question = {
     id: 3,
@@ -52,36 +54,6 @@ const QuestionPage = () => {
     const id = useParams().questionId;
     const [buttonClicked, setButtonClicked] = useState(false);
 
-    const [answer, setAnswer] = useState('');
-
-    const keywords = ["const", "let", "var", "if", "else", "for", "while", "function"];
-    const contentLines = question.description.split('\n');
-    console.log(contentLines);
-
-    const highlightKeywords = (line) => {
-        return line.split(/\b/).map((word, index) => {
-            if (keywords.includes(word)) {
-                return <span key={index} className="text-blue-500">{word}</span>;
-            }
-            return word;
-        });
-    };
-
-    const handleSubmit = () => {
-        console.log('Submitted answer:', answer);
-        answers.push({
-            id: answers.length + 1,
-            content: answer,
-            user: 'John',
-        });
-
-        setAnswer('');
-    };
-
-    const handleInputChange = (event) => {
-        setAnswer(event.target.value);
-    };
-
     // useEffect(() => {
     //     const fetchQuestion = async () => {
     //         const response = await fetch(`http://localhost:8000/questions/${id}`);
@@ -91,59 +63,38 @@ const QuestionPage = () => {
     //     fetchQuestion().then(r => console.log(r));
     // }, []);
 
-    const AddAnswer = () => {
+    const changeButtonState = () => {
+        setButtonClicked(!buttonClicked);
+    }
+
+    const handleAddAnswer = async (answer) => {
         console.log('Add Answer');
         setButtonClicked(!buttonClicked);
+        answers.push({
+            id: answers.length + 1,
+            content: answer,
+            user: 'John',
+            comments: [],
+        });
     }
 
     return (
         <div className="bg-gray-100 border border-gray-300 p-4 mb-4 w-7/12 mx-auto rounded-3xl">
             <div>
                 <h1 className="text-3xl font-bold mb-2">{question.title} </h1>
-                {contentLines.map((line, index) => {
-                    if (line.startsWith('    ')) {
-                        return (
-                            <p key={index} className="bg-gray-800 text-gray-200 p-2 whitespace-pre-wrap">
-                                {highlightKeywords(line)}
-                            </p>
-                        );
-                    } else {
-                        return (
-                            <p key={index}>
-                                {line}
-                            </p>
-                        );
-                    }
-                })}
+                <TextFormatter text={question.description} />
                 <br/>
                 <p className="text-gray-800">Asked by {question.user}</p>
             </div>
             <div>
                 <div className="flex justify-between pb-2">
                     <h2 className="text-2xl font-bold mb-2 mt-2">Answers {answers.length}</h2>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl " onClick={AddAnswer}>Add Answer</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl " onClick={changeButtonState}>Add Answer</button>
                 </div>
                 {buttonClicked && (
-                    <div className="flex flex-col">
-                        <div className="flex">
-                            <textarea
-                                value={answer}
-                                onChange={handleInputChange}
-                                placeholder="Enter your answer"
-                                className="border border-gray-300 p-2 mb-2 w-1/2"
-                            />
-                            <div className="ml-2 w-1/2">
-                                <h3 className="text-lg font-bold mb-2">Preview:</h3>
-                                {answer.length > 0 && (
-                                    <Answer answer={{ content: answer, user: 'John' }} />
-                                )}
-                            </div>
-
-                        </div>
-                        <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl mt-2 mx-auto mb-4 w-1/4">
-                            Submit
-                        </button>
-                    </div>
+                    <AddAnswer
+                        onAddAnswer={handleAddAnswer}
+                    />
                 )}
 
                 <ul>

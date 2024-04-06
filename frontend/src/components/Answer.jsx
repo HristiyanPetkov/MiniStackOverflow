@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Comment from './Comment';
+import TextFormatter from "./TextFormatter";
 
 const Answer = ({ answer }) => {
-    const keywords = ["const", "let", "var", "if", "else", "for", "while", "function"];
     const [newComment, setNewComment] = useState('');
 
     const handleCommentChange = (e) => {
@@ -26,34 +26,9 @@ const Answer = ({ answer }) => {
         }
     };
 
-    const highlightKeywords = (line) => {
-        return line.split(/\b/).map((word, index) => {
-            if (keywords.includes(word)) {
-                return <span key={index} className="text-blue-500">{word}</span>;
-            }
-            return word;
-        });
-    };
-
-    const contentLines = answer.content.split('\n');
-
     return (
         <div className="bg-gray-200 border border-gray-300 p-4 mb-4 rounded-3xl">
-            {contentLines.map((line, index) => {
-                if (line.startsWith('    ')) {
-                    return (
-                        <p key={index} className="bg-gray-800 text-gray-200 p-2 whitespace-pre-wrap">
-                            {highlightKeywords(line)}
-                        </p>
-                    );
-                } else {
-                    return (
-                        <p key={index}>
-                            {line}
-                        </p>
-                    );
-                }
-            })}
+            <TextFormatter text={answer.content} />
             <br/>
             <p className="mb-3">Commented by {answer.user}</p>
             <div className="border-b border-black" />

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Question from './Question';
+import {Link} from "react-router-dom";
 
 const questions = [
     {
@@ -59,8 +60,14 @@ const HomePage = () => {
     return (
         <div>
             <h1 className="text-center text-4xl" >Questions</h1>
-            <ul className="flex-col flex">
-                <p>Amount: {questions.length}</p>
+            <ul>
+                <div className="flex justify-between mx-auto w-7/12 mb-2 items-center">
+                    <p className="text-2xl">Amount: {questions.length}</p>
+                    <Link to={'/askQuestion'}>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl ">Ask Question</button>
+                    </Link>
+                </div>
+
                 {questions.map((question) => (
                     <li key={question.id}>
                         <Question question={question} />

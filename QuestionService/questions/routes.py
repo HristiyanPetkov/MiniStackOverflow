@@ -1,25 +1,31 @@
-from flask import Blueprint, request, jsonify, render_template
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask import Blueprint, request, jsonify
 
 from questions.services import *
-from questions.models import Question
-from questions.forms import QuestionForm
-from extensions import db
 
 questions_bp = Blueprint('questions', __name__, url_prefix='/questions')
 
-@questions_bp.route('/new', methods=["GET", "POST"])
-def new_question():
-    form = QuestionForm()
-    if form.validate_on_submit():
-        new_question = Question(
-            title=form.title.data,
-            body=form.body.data,
-            user_id=get_jwt_identity()
-        )
-        db.session.add(new_question)
-        db.session.commit()
-
-        return jsonify({'message': 'Question posted successfully'}), 201
+@questions_bp.route('/create', methods=["POST"])
+def create_question():
+    data = request.get_json()
     
-    return render_template('new_question.html', form=form)
+    create_question(data)
+
+    return jsonify({"message": "Question created successfully"}), 201
+
+@questions_bp.route('/<int:question_id>', methods=["GET"])
+def get_question(question_id):
+    question = get_question_by_id(question_id)
+
+    return jsonify(question), 200
+
+@questions_bp.route('/<int:question_id>/resolve', methods=["PATCH"])
+def resolve_question(question_id):
+    question = resolve_question_by_id(question_id)
+
+    return jsonify(question), 200
+
+@questions_bp.route('/<int:question_id>/is_resolved', methods=["GET"])
+def is_resolved(question_id):
+    question = get_question_by_id(question_id)
+
+    return jsonify({"is_resolved": question.is_resolved}), 200

@@ -76,3 +76,28 @@ def is_resolved_by_id(question_id):
     }
 
     return message
+
+def delete_question_by_id(question_id):
+    question = Question.query.get(question_id)
+
+    db.session.delete(question)
+    db.session.commit()
+
+    message = {
+        "message": "Question deleted"
+    }
+
+    return message
+
+def delete_all_questions():
+    questions = Question.query.all()
+
+    for question in questions:
+        db.session.delete(question)
+        db.session.commit()
+
+    message = {
+        "message": "All questions deleted"
+    }
+
+    return message

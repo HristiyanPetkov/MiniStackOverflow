@@ -35,3 +35,15 @@ def is_resolved(question_id):
     message = is_resolved_by_id(question_id)
 
     return jsonify(message), 200
+
+@questions_bp.route('/delete_one/<int:question_id>', methods=["DELETE"])
+def delete_question(question_id):
+    message = delete_question_by_id(question_id)
+
+    return jsonify(message), 200
+
+@questions_bp.route('/delete_all', methods=["DELETE"])
+def delete_all():
+    message = delete_all_questions()
+
+    return jsonify(message), 200

@@ -8,7 +8,7 @@ class Question(db.Model):
     body = db.Column(db.Text, nullable=False)
     image_file = db.Column(db.String(20), nullable=True)
     is_resolved = db.Column(db.Boolean, default=False)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    author_id = db.Column(db.Integer, nullable=False)
     
     def __repr__(self):
         return f"<Question {self.title}>"

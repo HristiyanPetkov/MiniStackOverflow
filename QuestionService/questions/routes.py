@@ -8,24 +8,30 @@ questions_bp = Blueprint('questions', __name__, url_prefix='/questions')
 def create_question():
     data = request.get_json()
     
-    create_question(data)
+    message = create_question_object(data)
 
-    return jsonify({"message": "Question created successfully"}), 201
+    return jsonify(message), 201
 
-@questions_bp.route('/<int:question_id>', methods=["GET"])
+@questions_bp.route('/get_one/<int:question_id>', methods=["GET"])
 def get_question(question_id):
-    question = get_question_by_id(question_id)
+    message = get_question_by_id(question_id)
 
-    return jsonify(question), 200
+    return jsonify(message), 200
 
-@questions_bp.route('/<int:question_id>/resolve', methods=["PATCH"])
+@questions_bp.route('/get_all', methods=["GET"])
+def get_all():
+    message = get_all_questions()
+    
+    return jsonify(message), 200
+
+@questions_bp.route('/resolve/<int:question_id>', methods=["PATCH"])
 def resolve_question(question_id):
-    question = resolve_question_by_id(question_id)
+    message = resolve_question_by_id(question_id)
 
-    return jsonify(question), 200
+    return jsonify(message), 200
 
-@questions_bp.route('/<int:question_id>/is_resolved', methods=["GET"])
+@questions_bp.route('/is_resolved/<int:question_id>', methods=["GET"])
 def is_resolved(question_id):
-    question = get_question_by_id(question_id)
+    message = is_resolved_by_id(question_id)
 
-    return jsonify({"is_resolved": question.is_resolved}), 200
+    return jsonify(message), 200

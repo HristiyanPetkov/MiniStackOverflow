@@ -6,7 +6,7 @@ class Config:
     db_password = os.getenv('DB_PASSWORD')
     db_name = os.getenv('DB_NAME')
 
-    SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://root:password@mysql/microservice-answers'
+    SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://root:password@mysql/microservice_answers'
 
 if __name__ == '__main__':
     config = Config()

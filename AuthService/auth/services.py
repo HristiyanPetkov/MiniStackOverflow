@@ -32,3 +32,13 @@ def login_user(email, password):
 
 def generate_access_token(user_id):
     return create_access_token(identity=user_id)
+
+def get_user_by_id(user_id):
+    user = User.query.get(user_id)
+
+    message = {
+        "id": user.id,
+        "email": user.email
+    }
+
+    return message

@@ -1,15 +1,13 @@
 import requests
 from flask import jsonify, request, Blueprint
-from flask_jwt_extended import jwt_required
 from helper_functions.jwt_helper import getUserFromToken
 
 answers_bp = Blueprint('answers', __name__, url_prefix='/answers')
 
-ANSWERS_SERVICE_URL = 'http://answers-service:8000/answers'
+ANSWERS_SERVICE_URL = 'http://127.0.0.1:8001/answers'
 
 
 @answers_bp.route('/create', methods=['POST'])
-@jwt_required()
 def create_answer():
     response = getUserFromToken()
 
@@ -47,7 +45,6 @@ def get_all_answers():
 
 
 @answers_bp.route('/set_final/<int:answer_id>', methods=['PATCH'])
-@jwt_required()
 def set_final_answer(answer_id):
     response = getUserFromToken()
 
@@ -75,7 +72,6 @@ def is_final_answer(answer_id):
 
 
 @answers_bp.route('/delete_one/<int:answer_id>', methods=["DELETE"])
-@jwt_required()
 def delete_answer(answer_id):
     response = getUserFromToken()
 
@@ -91,7 +87,6 @@ def delete_answer(answer_id):
 
 
 @answers_bp.route('/delete_all', methods=["DELETE"])
-@jwt_required()
 def delete_all_answers():
     response = getUserFromToken()
 

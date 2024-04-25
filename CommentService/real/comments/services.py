@@ -16,7 +16,7 @@ def create_comment_object(data):
     db.session.add(new_comment)
     db.session.commit()
 
-    new_question = Comment.query.order_by(Comment.id.desc()).first()
+    new_comment = Comment.query.order_by(Comment.id.desc()).first()
 
     message = {
         "id": new_comment.id,
@@ -30,12 +30,11 @@ def create_comment_object(data):
 
 
 def get_comments_by_answer_id(answer_id):
-    # TODO check; if not get => all
-    comments = Comment.query.get(answer_id)
+    # Retrieve all comments associated with the given answer_id
+    comments = Comment.query.filter_by(answer_id=answer_id).all()
 
     message = {}
-    index = 0
-    for comment in comments:
+    for index, comment in enumerate(comments):
         message[index] = {
             "id": comment.id,
             "answer_id": comment.answer_id,
@@ -43,7 +42,35 @@ def get_comments_by_answer_id(answer_id):
             "publication_ts": comment.publication_ts,
             "body": comment.body
         }
-        index += 1
+
+    return message
+
+def get_comment_by_id(comment_id):
+    comment = Comment.query.get(comment_id)
+
+    message = {
+        "id": comment.id,
+        "answer_id": comment.answer_id,
+        "user_id": comment.user_id,
+        "publication_ts": comment.publication_ts,
+        "body": comment.body
+    }
+
+    return message
+
+
+def get_all_comments():
+    comments = Comment.query.all()
+
+    message = {}
+    for index, comment in enumerate(comments):
+        message[index] = {
+            "id": comment.id,
+            "answer_id": comment.answer_id,
+            "user_id": comment.user_id,
+            "publication_ts": comment.publication_ts,
+            "body": comment.body
+        }
 
     return message
 

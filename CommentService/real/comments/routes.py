@@ -20,6 +20,19 @@ def get_comment(answer_id):
     return jsonify(message), 200
 
 
+@comments_bp.route('/get_one/<int:comment_id>', methods=["GET"])
+def get_one(comment_id):
+    message = get_comment_by_id(comment_id)
+
+    return jsonify(message), 200
+
+@comments_bp.route('/get_all', methods=["GET"])
+def get_all():
+    message = get_all_comments()
+
+    return jsonify(message), 200
+
+
 @comments_bp.route('/delete_one/<int:comment_id>', methods=["DELETE"])
 def delete_comment(comment_id):
     message = delete_comment_by_id(comment_id)

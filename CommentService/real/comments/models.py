@@ -6,7 +6,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     answer_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
-    publication_ts = db.Column(db.Datetime, nullable=False)
+    publication_ts = db.Column(db.DateTime, nullable=False)
     body = db.Column(db.Text, nullable=False)
     
     def __repr__(self):

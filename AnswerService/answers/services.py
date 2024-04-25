@@ -29,6 +29,19 @@ def create_answer_object(data):
             "author_id": new_answer.author_id
         }
 
+        # question = requests.get(f"http://localhost:8000/questions/get_one/{new_answer.question_id}").json()
+
+        # question_author = requests.get(f"http://localhost:8000/auth/get_one/{question.author_id}").json()
+        # message['author'] = question_author
+
+        # notification = {
+        #     "recipient_email": question_author['email'],
+        #     "subject": "They answered your question!",
+        #     "body": f"{new_answer.body}"
+        # }
+
+        # requests.post("http://localhost:8000/notifications/send", json=notification)
+
     return message
 
 def get_answer_by_id(answer_id):
@@ -76,6 +89,16 @@ def set_final_answer_by_id(answer_id):
         "question_id": answer.question_id,
         "author_id": answer.author_id
     }
+
+    # author = requests.get(f"http://localhost:8000/auth/get_one/{answer.author_id}").json()
+    
+    # notification = {
+    #     "recipient_email": author['email'],
+    #     "subject": "Your answer was marked as final!",
+    #     "body": f"{answer.body}"
+    # }
+
+    # requests.post("http://localhost:8000/notifications/send", json=notification)
 
     return message
 

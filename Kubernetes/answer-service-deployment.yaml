@@ -21,13 +21,26 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: db_root_password
+            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mso-secrets
                   key: db_root_password
-            - name: db_user
-              value: root
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: database-config
+                  key: db_user
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: database-config
+                  key: db_host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-config
+                  key: answer_db_name
 
 ---
 apiVersion: v1

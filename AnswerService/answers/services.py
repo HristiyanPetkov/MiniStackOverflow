@@ -1,6 +1,15 @@
 from answers.models import Answer
 from extensions import db
 import requests
+import redis
+
+# Create a connection to the Redis server with database name cache-LVFMKUIY
+host = 'redis-19916.c250.eu-central-1-1.ec2.redns.redis-cloud.com'
+port = 19916
+password = "cWjOTj69Lk2mGiMs9O9aKI2SRJ5lnubm"
+
+# Connect to the Redis server
+r = redis.StrictRedis(host=host, port=port, password=password, decode_responses=True)
 
 def create_answer_object(data):
     is_resolved_response = requests.get(f"http://localhost:8000/questions/is_resolved/{data['question_id']}")
@@ -32,16 +41,13 @@ def create_answer_object(data):
 
         # Send notification to the author of the question
 
-        question = requests.get(f"http://localhost:8000/questions/get_one/{new_answer.question_id}").json()
+        question_author = r.get(f"question_{new_answer.question_id}")
+        author_email = r.get(f"user_{question_author}")
 
-        question_author = requests.get(f"http://localhost:8003/auth/get_one/{question['author_id']}").json()
-
-        question_author_email = question_author['email']
-
-        print(question_author_email)
+        print(author_email)
 
         notification = {
-            "recipient_email": question_author_email,
+            "recipient_email": author_email,
             "subject": "They answered your question!",
             "body": f"{new_answer.body}"
         }
@@ -96,8 +102,6 @@ def set_final_answer_by_id(answer_id):
         "question_id": answer.question_id,
         "author_id": answer.author_id
     }
-
-    # Send notification to the author of the answer
 
     author = requests.get(f"http://localhost:8003/auth/get_one/{answer.author_id}").json()
 

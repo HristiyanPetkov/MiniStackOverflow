@@ -51,7 +51,7 @@ def validate_token():
     if not current_user_id:
         return jsonify({'message': 'Invalid token'}), 400
 
-    return jsonify({'message': f'Token is valid for user {current_user_id}'}), 200
+    return jsonify({'user_id': {current_user_id}}), 200
 
 @auth_bp.route('/get_one/<int:id>', methods=['GET'])
 def get_one(id):

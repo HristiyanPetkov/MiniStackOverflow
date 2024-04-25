@@ -1,9 +1,17 @@
 from flask_jwt_extended import create_access_token
 import bcrypt
+import redis
 
 from auth.models import User
 from extensions import db
 
+# Create a connection to the Redis server with database name cache-LVFMKUIY
+host = 'redis-19916.c250.eu-central-1-1.ec2.redns.redis-cloud.com'
+port = 19916
+password = "cWjOTj69Lk2mGiMs9O9aKI2SRJ5lnubm"
+
+# Connect to the Redis server
+r = redis.StrictRedis(host=host, port=port, password=password, decode_responses=True)
 
 def register_user(email, password):
     existing_user = User.query.filter_by(email=email).first()
@@ -15,6 +23,9 @@ def register_user(email, password):
     new_user = User(email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
+
+    user_key = f"user_{new_user.id}"
+    r.set(user_key, new_user.email)
 
     return new_user, None
 

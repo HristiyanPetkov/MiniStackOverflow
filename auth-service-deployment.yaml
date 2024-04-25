@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-service-deployment
+  name: auth-service
   labels:
     app: auth-service
 spec:
@@ -17,7 +17,7 @@ spec:
       containers:
         - name: auth-service
           image: sylse/auth-service
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
@@ -43,4 +43,4 @@ spec:
       targetPort: 8000
   selector:
     app: auth-service
-  type: NodePort
+  type: ClusterIP

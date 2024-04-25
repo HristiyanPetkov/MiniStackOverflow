@@ -1,20 +1,28 @@
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-EMAIL_SENDER = 'duohealth0@gmail.com'
-EMAIL_PASSWORD = 'gxopinvriohdwyzd'
+import os
+from dotenv import load_dotenv
+from datetime import datetime
 
 def send_email_notification(user_email, subject, body):
-    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:           # Create a secure SSL context
-        smtp.ehlo()                                             # Identify yourself to an ESMTP server using EHLO
-        smtp.starttls()                                         # Put the SMTP connection in TLS (Transport Layer Security) mode
-        smtp.ehlo()                                             # Re-identify yourself to an ESMTP server using EHLO
+    try:
+        load_dotenv()
 
-        smtp.login(EMAIL_SENDER, EMAIL_PASSWORD)                # Log in on an SMTP server that requires authentication
+        email_sender = os.getenv('EMAIL_SENDER')
+        email_password = os.getenv('EMAIL_PASSWORD')
 
-        #subject = 'MiniStackOverflow response'                # Define the subject and body of the email
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
 
-        msg = f'Subject: {subject}\n\n{body}'                   # Format the message   
+            smtp.login(email_sender, email_password)
 
-        smtp.sendmail(EMAIL_SENDER, user_email, msg)   
+            subject = f'{subject} - {datetime.now().strftime("%H:%M:%S %d-%m-%Y")}'
+
+            msg = f'Subject: {subject}\n\n{body}'
+
+            smtp.sendmail(email_sender, user_email, msg)
+        
+        return True, None
+    except Exception as e:
+        return False, str(e)

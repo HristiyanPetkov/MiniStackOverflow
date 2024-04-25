@@ -34,3 +34,12 @@ def validate_token():
         return jsonify(response.json()), 200
     else:
         return jsonify(response.json()), response.status_code
+
+@auth_bp.route('/get_one/<int:id>', methods=['GET'])
+def get_one(id):
+    response = requests.get(f'{AUTH_SERVICE_URL}/get_one/{id}')
+
+    if response.status_code == 200:
+        return jsonify(response.json()), 200
+    else:
+        return jsonify(response.json()), response.status_code

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-config
+data:
+  db_user: "root"
+  db_host: "mysql"
+  auth_db_name: "microservice_auth"
+  question_db_name: "microservice_question"
+  answer_db_name: "microservice_answer"
+  comment_db_name: "microservice_comment"

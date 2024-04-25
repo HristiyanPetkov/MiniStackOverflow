@@ -1,12 +1,20 @@
 import os
-
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
+from dotenv import load_dotenv
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or \
-                              'mysql+mysqlconnector://root:password@mysql/microservice_auth'
+    load_dotenv()
 
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    db_host = os.getenv('DB_HOST')
+    db_user = os.getenv('DB_USER')
+    db_password = os.getenv('DB_PASSWORD')
+    db_name = os.getenv('DB_NAME')
 
-    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'KGe2j5oq5uWbXkLXjGNZ6VGsPhJf2UzE'
+    print(f"DB_HOST: {db_host}")
+    print(f"DB_USER: {db_user}")
+    print(f"DB_PASSWORD: {db_password}")
+    print(f"DB_NAME: {db_name}")
+
+    SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://{db_user}:{db_password}@{db_host}/{db_name}'
+
+if __name__ == '__main__':
+    config = Config()

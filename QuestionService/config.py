@@ -6,4 +6,4 @@ class Config:
     # db_password = os.environ.get('DB_PASSWORD')
     # db_name = os.environ.get('DB_NAME')
 
-    SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://root:password@mysql/microservice-questions'
+    SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://root:password@mysql/microservice_questions'

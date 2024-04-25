@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+  labels:
+    app: notification-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          image: sylse/notification-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: db_root_password
+              valueFrom:
+                secretKeyRef:
+                  name: mso-secrets
+                  key: db_root_password
+            - name: db_user
+              value: root
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-service
+  labels:
+    app: notification-service
+spec:
+  ports:
+    - port: 8000
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app: notification-service
+  type: ClusterIP

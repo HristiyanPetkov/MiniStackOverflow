@@ -1,5 +1,14 @@
 from questions.models import Question
 from extensions import db
+import redis
+
+# Create a connection to the Redis server with database name cache-LVFMKUIY
+host = 'redis-19916.c250.eu-central-1-1.ec2.redns.redis-cloud.com'
+port = 19916
+password = "cWjOTj69Lk2mGiMs9O9aKI2SRJ5lnubm"
+
+# Connect to the Redis server
+r = redis.StrictRedis(host=host, port=port, password=password, decode_responses=True)
 
 def create_question_object(data):
     new_question = Question(
@@ -20,6 +29,9 @@ def create_question_object(data):
         "is_resolved": new_question.is_resolved,
         "author_id": new_question.author_id
     }
+
+    question_key = f"question_{new_question.id}"
+    r.set(question_key, new_question.author_id)
 
     return message
 

@@ -20,6 +20,3 @@ def send_notification():
         return jsonify({'message': 'Notification sent successfully'}), 200
     else:
         return jsonify({'message': f'Failed to send notification: {error_message}'}), 500
-        
-    
-    

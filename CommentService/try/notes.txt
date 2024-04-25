@@ -1,0 +1,9 @@
+export ASTRA_DB_ID=4ca457fc-7799-4025-b404-c0ab8cf8ac0d
+export ASTRA_DB_REGION=eu-west-1
+export ASTRA_DB_APPLICATION_TOKEN=AstraCS:RmkPfozKSdblZKHNIoglKwcx:a6f1412ba57776498ec7f1ca371d5ac2f732c4b3e0645e7b3e340a86f2bc52e7
+export ASTRA_DB_KEYSPACE=comments_keyspace
+export ASTRA_DB_COLLECTION=comments
+
+export ASTRA_PATH_TO_SECURE_BUNDLE=/Users/sasukoboy/Documents/GitHub/MiniStackOverflow/CommentService/secure-connect-ministackdb.zip
+export ASTRA_CLIENT_ID=RmkPfozKSdblZKHNIoglKwcx
+export ASTRA_CLIENT_SECRET=zW_DGFECJ.LzAxUL9YXI8-PLk_Lc3K,U.-4++wRy8EwERFSfO.amNfpHItZsfIW.68z6XT-gsf2e,-NMNC5o3jyrugwFSdG0MKPj28kJ9O_FBsLlvxTGo.LnMYAQRepv

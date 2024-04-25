@@ -3,7 +3,7 @@ from extensions import db
 import requests
 
 def create_answer_object(data):
-    is_resolved = requests.get(f"http://localhost:8000/questions/is_resolved/{data['question_id']}").json()['is_resolved']
+    is_resolved = requests.get(f"http://questions-service:8000/questions/is_resolved/{data['question_id']}").json()['is_resolved']
 
     if is_resolved:
         message = {
@@ -66,7 +66,7 @@ def set_final_answer_by_id(answer_id):
     answer.is_final = True
     db.session.commit()
 
-    request = requests.patch(f"http://localhost:8000/questions/resolve/{answer.question_id}")
+    request = requests.patch(f"http://questions-service:8000/questions/resolve/{answer.question_id}")
     print(request.text, request.status_code)
     
     message = {

@@ -40,7 +40,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: database-config
-                  key: quesiton_db_name
+                  key: question_db_name
 
 ---
 apiVersion: v1

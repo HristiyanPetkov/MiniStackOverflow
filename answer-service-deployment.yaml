@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: answer-service
+  labels:
+    app: answer-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: answer-service
+  template:
+    metadata:
+      labels:
+        app: answer-service
+    spec:
+      containers:
+        - name: answer-service
+          image: sylse/answer-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: db_root_password
+              valueFrom:
+                secretKeyRef:
+                  name: mso-secrets
+                  key: db_root_password
+            - name: db_user
+              value: root
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: answer-service
+  labels:
+    app: answer-service
+spec:
+  ports:
+    - port: 8000
+      protocol: TCP
+      targetPort: 8000
+  selector:
+    app: answer-service
+  type: ClusterIP

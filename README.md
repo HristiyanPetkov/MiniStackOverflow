@@ -18,7 +18,7 @@ MiniStackOverflow is a Q&A platform where users can post questions, provide answ
 
 The application consists of several microservices, each responsible for a specific domain within the application. These services communicate via REST APIs and asynchronous messaging using Kafka.
 
-- **Backend**: Developed with Java and Spring Boot
+- **Backend**: Developed with Python and Flask
   - Authentication/User Service
   - Question Service
   - Answer Service

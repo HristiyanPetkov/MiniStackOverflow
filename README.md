@@ -41,7 +41,7 @@ The application consists of several microservices, each responsible for a specif
 
 ## Deployment
 
-### Deploy to Kubernetes:
+### Kubernetes
 
 - Ensure your Kubernetes cluster is running
 _ Apply the following files so that the needed environment is set up:
